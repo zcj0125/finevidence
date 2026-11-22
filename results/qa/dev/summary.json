@@ -1,0 +1,58 @@
+{
+  "gold": {
+    "acc": 0.7436,
+    "acc_lenient": 0.7616,
+    "exec_fail": 0.0258,
+    "tokens_in": 222.1,
+    "n": 776
+  },
+  "page": {
+    "acc": 0.701,
+    "acc_lenient": 0.7178,
+    "exec_fail": 0.0322,
+    "tokens_in": 1036.5,
+    "n": 776
+  },
+  "bm25.top5": {
+    "acc": 0.4639,
+    "acc_lenient": 0.4755,
+    "exec_fail": 0.0812,
+    "tokens_in": 1999.2,
+    "n": 776
+  },
+  "bm25+bge-reranker-v2-m3@30.top5": {
+    "acc": 0.482,
+    "acc_lenient": 0.491,
+    "exec_fail": 0.0606,
+    "tokens_in": 2106.4,
+    "n": 776
+  },
+  "oracle": {
+    "acc": 0.5902,
+    "acc_lenient": 0.6044,
+    "exec_fail": 0.076,
+    "tokens_in": 612.4,
+    "n": 776
+  },
+  "bm25+bge-reranker-v2-m3@30.top3": {
+    "acc": 0.4897,
+    "acc_lenient": 0.5013,
+    "exec_fail": 0.0696,
+    "tokens_in": 1305.5,
+    "n": 776
+  },
+  "bm25+bge-reranker-v2-m3@30.top3.cot": {
+    "acc": 0.4897,
+    "acc_lenient": 0.5,
+    "exec_fail": 0.0799,
+    "tokens_in": 1354.5,
+    "n": 776
+  },
+  "gold.cot": {
+    "acc": 0.7332,
+    "acc_lenient": 0.7539,
+    "exec_fail": 0.0399,
+    "tokens_in": 271.1,
+    "n": 776
+  }
+}

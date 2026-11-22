@@ -20,6 +20,21 @@ Write ONE arithmetic expression that computes the answer, using numbers copied f
 questions. For percentages, return the ratio itself (e.g. growth rate = (new - old) / old), not times 100.
 Reply as JSON: {{"evidence": "<the context lines you used>", "expression": "<expression>"}}"""
 
+COT_PROMPT = """You answer questions about a company's financial report using only the context.
+
+Context:
+{context}
+
+Question: {question}
+
+First reason briefly: which line or table cell holds each number you need (check the year, the row label,
+and the units, e.g. thousands vs millions), and which operation the question asks for. Then write ONE
+arithmetic expression using those numbers (no thousands separators, no units). Allowed: + - * / **
+parentheses, and comparisons (> <) for yes/no questions. For percentages, return the ratio itself
+(e.g. growth rate = (new - old) / old), not times 100. If the numbers come in different units, convert
+them inside the expression.
+Reply as JSON: {{"reasoning": "<short reasoning>", "expression": "<expression>"}}"""
+
 DIRECT_PROMPT = """You answer questions about a company's financial report using only the context.
 
 Context:
@@ -96,7 +111,7 @@ class LLM:
     def json_call(self, prompt: str) -> tuple[dict, dict]:
         resp = self.client.chat.completions.create(
             model=self.model, messages=[{"role": "user", "content": prompt}], temperature=0,
-            response_format={"type": "json_object"}, max_tokens=600,
+            response_format={"type": "json_object"}, max_tokens=900,
         )
         usage = {"in": resp.usage.prompt_tokens, "out": resp.usage.completion_tokens}
         try:
@@ -105,15 +120,19 @@ class LLM:
             return {}, usage
 
 
-def run_program(llm: LLM, context: str, question: str) -> dict:
-    out, usage = llm.json_call(PROGRAM_PROMPT.format(context=context, question=question))
+def run_program(llm: LLM, context: str, question: str, prompt: str = PROGRAM_PROMPT) -> dict:
+    out, usage = llm.json_call(prompt.format(context=context, question=question))
     expr = str(out.get("expression", ""))
     try:
         pred = parse_number(safe_eval(expr))
         err = None
     except Exception as e:  # noqa: BLE001 - any parse/eval failure is a wrong answer
         pred, err = None, f"{type(e).__name__}: {e}"
-    return {"expression": expr, "evidence": out.get("evidence", ""), "pred": pred, "error": err, "usage": usage}
+    return {"expression": expr, "evidence": out.get("evidence", out.get("reasoning", "")), "pred": pred, "error": err, "usage": usage}
+
+
+def run_cot(llm: LLM, context: str, question: str) -> dict:
+    return run_program(llm, context, question, prompt=COT_PROMPT)
 
 
 def run_direct(llm: LLM, context: str, question: str) -> dict:
