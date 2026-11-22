@@ -12,6 +12,7 @@ dependencies = [
     "tqdm",
     "openai",
     "datasets>=5.2.0",
+    "accelerate>=1.16.0",
 ]
 
 [dependency-groups]
