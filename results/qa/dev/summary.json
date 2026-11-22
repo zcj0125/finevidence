@@ -54,5 +54,19 @@
     "exec_fail": 0.0399,
     "tokens_in": 271.1,
     "n": 776
+  },
+  "bm25+bge-reranker-v2-m3@30.top3.extract": {
+    "acc": 0.4858,
+    "acc_lenient": 0.4961,
+    "exec_fail": 0.0696,
+    "tokens_in": 1503.8,
+    "n": 776
+  },
+  "bm25+bge-reranker-v2-m3@30.top5.extract": {
+    "acc": 0.4936,
+    "acc_lenient": 0.5039,
+    "exec_fail": 0.0644,
+    "tokens_in": 2309.7,
+    "n": 776
   }
 }

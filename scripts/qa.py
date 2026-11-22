@@ -24,7 +24,7 @@ from tqdm import tqdm
 
 from fev import PROJECT_ROOT
 from fev.data import gold_context, load_proc, page_context
-from fev.reason import LLM, is_correct, run_cot, run_direct, run_program
+from fev.reason import LLM, is_correct, run_cot, run_direct, run_extract, run_program
 
 
 def summarize(rows: list[dict]) -> dict:
@@ -42,14 +42,14 @@ def main():
     ap.add_argument("--split", default="dev")
     ap.add_argument("--contexts", nargs="+", required=True)
     ap.add_argument("--top", type=int, default=5)
-    ap.add_argument("--mode", choices=["program", "cot", "direct"], default="program")
+    ap.add_argument("--mode", choices=["program", "cot", "extract", "direct"], default="program")
     ap.add_argument("--model", default=None)
     ap.add_argument("--workers", type=int, default=16)
     args = ap.parse_args()
 
     exs, docs, gold = load_proc(args.split)
     llm = LLM(args.model)
-    fn = {"program": run_program, "cot": run_cot, "direct": run_direct}[args.mode]
+    fn = {"program": run_program, "cot": run_cot, "extract": run_extract, "direct": run_direct}[args.mode]
     out_dir = PROJECT_ROOT / "results" / "qa" / args.split
     out_dir.mkdir(parents=True, exist_ok=True)
     summary_path = out_dir / "summary.json"

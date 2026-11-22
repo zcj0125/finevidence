@@ -35,6 +35,18 @@ parentheses, and comparisons (> <) for yes/no questions. For percentages, return
 them inside the expression.
 Reply as JSON: {{"reasoning": "<short reasoning>", "expression": "<expression>"}}"""
 
+EXTRACT_PROMPT = """You select evidence from a company's financial report.
+
+Context:
+{context}
+
+Question: {question}
+
+Copy, verbatim, only the lines needed to answer the question: the sentences, and for tables the header
+row(s) (years, units such as "in millions") plus the data rows used. Prefer the lines that match the
+question's company segment, metric and years exactly. Usually 1-4 lines.
+Reply as JSON: {{"lines": ["<line>", ...]}}"""
+
 DIRECT_PROMPT = """You answer questions about a company's financial report using only the context.
 
 Context:
@@ -133,6 +145,16 @@ def run_program(llm: LLM, context: str, question: str, prompt: str = PROGRAM_PRO
 
 def run_cot(llm: LLM, context: str, question: str) -> dict:
     return run_program(llm, context, question, prompt=COT_PROMPT)
+
+
+def run_extract(llm: LLM, context: str, question: str) -> dict:
+    """Two calls: pick the evidence lines, then write the expression from those lines only."""
+    sel, u1 = llm.json_call(EXTRACT_PROMPT.format(context=context, question=question))
+    lines = [str(x) for x in sel.get("lines", []) if str(x).strip()] if isinstance(sel.get("lines"), list) else []
+    out = run_program(llm, "\n".join(lines) or context, question)
+    out["selected"] = lines
+    out["usage"] = {"in": u1["in"] + out["usage"]["in"], "out": u1["out"] + out["usage"]["out"]}
+    return out
 
 
 def run_direct(llm: LLM, context: str, question: str) -> dict:
