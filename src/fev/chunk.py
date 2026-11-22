@@ -60,9 +60,14 @@ def numbers(text: str) -> set[str]:
     return out
 
 
+def _is_year(s: str) -> bool:
+    return s.isdigit() and 1990 <= int(s) <= 2030
+
+
 def label_gold_chunks(chunks: list[str], gold_inds: dict[str, str], min_frac: float = 0.5) -> list[int]:
     """Chunks covering the most gold numbers (at least min_frac of them). Empty if evidence has no numbers."""
     gold = numbers(" ".join(gold_inds.values()))
+    gold = {g for g in gold if not _is_year(g)} or gold  # years appear everywhere in a filing
     if not gold:
         return []
     cover = [len(gold & numbers(c)) / len(gold) for c in chunks]
