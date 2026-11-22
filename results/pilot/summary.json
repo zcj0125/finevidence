@@ -1,0 +1,82 @@
+{
+  "n_dev": 776,
+  "n_labeled": 706,
+  "retrieval": {
+    "bm25": {
+      "hit@1": 0.5185185185185185,
+      "hit@3": 0.698005698005698,
+      "hit@5": 0.7777777777777778,
+      "hit@10": 0.8675213675213675,
+      "hit@20": 0.9173789173789174,
+      "n": 702
+    },
+    "bge-small": {
+      "hit@1": 0.3333333333333333,
+      "hit@3": 0.5085470085470085,
+      "hit@5": 0.5997150997150997,
+      "hit@10": 0.7037037037037037,
+      "hit@20": 0.8062678062678063,
+      "n": 702
+    },
+    "bge-small>v2-m3 (sample)": {
+      "hit@1": 0.585,
+      "hit@3": 0.74,
+      "hit@5": 0.79,
+      "hit@10": 0.82,
+      "hit@20": 0.825,
+      "n": 200
+    },
+    "bge-small (sample)": {
+      "hit@1": 0.39,
+      "hit@3": 0.545,
+      "hit@5": 0.63,
+      "hit@10": 0.695,
+      "hit@20": 0.795,
+      "n": 200
+    }
+  },
+  "qa": {
+    "page_direct": {
+      "acc": 0.655,
+      "acc_lenient": 0.67,
+      "exec_fail": null,
+      "tokens_in": 960.335,
+      "n": 200
+    },
+    "page_program": {
+      "acc": 0.74,
+      "acc_lenient": 0.77,
+      "exec_fail": 0.03,
+      "tokens_in": 1007.335,
+      "n": 200
+    },
+    "gold_program": {
+      "acc": 0.775,
+      "acc_lenient": 0.805,
+      "exec_fail": 0.025,
+      "tokens_in": 225.43,
+      "n": 200
+    },
+    "doc_bm25_top5": {
+      "acc": 0.54,
+      "acc_lenient": 0.55,
+      "exec_fail": 0.08,
+      "tokens_in": 2007.08,
+      "n": 200
+    },
+    "doc_dense_top5": {
+      "acc": 0.455,
+      "acc_lenient": 0.46,
+      "exec_fail": 0.095,
+      "tokens_in": 2096.675,
+      "n": 200
+    },
+    "doc_rerank_top5": {
+      "acc": 0.53,
+      "acc_lenient": 0.535,
+      "exec_fail": 0.08,
+      "tokens_in": 2139.005,
+      "n": 200
+    }
+  }
+}
