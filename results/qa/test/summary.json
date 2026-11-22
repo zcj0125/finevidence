@@ -1,0 +1,51 @@
+{
+  "bm25+reranker-base-ft@30.top3": {
+    "acc": 0.5326,
+    "acc_lenient": 0.55,
+    "exec_fail": 0.0609,
+    "tokens_in": 1467.7,
+    "n": 920
+  },
+  "bm25+bge-reranker-v2-m3@30.top3": {
+    "acc": 0.5022,
+    "acc_lenient": 0.525,
+    "exec_fail": 0.0815,
+    "tokens_in": 1309.1,
+    "n": 920
+  },
+  "bm25.top5": {
+    "acc": 0.488,
+    "acc_lenient": 0.5087,
+    "exec_fail": 0.0717,
+    "tokens_in": 2003.7,
+    "n": 920
+  },
+  "gold": {
+    "acc": 0.7685,
+    "acc_lenient": 0.7978,
+    "exec_fail": 0.0196,
+    "tokens_in": 221.3,
+    "n": 920
+  },
+  "page": {
+    "acc": 0.7261,
+    "acc_lenient": 0.7543,
+    "exec_fail": 0.025,
+    "tokens_in": 1015.1,
+    "n": 920
+  },
+  "oracle": {
+    "acc": 0.6065,
+    "acc_lenient": 0.6228,
+    "exec_fail": 0.0739,
+    "tokens_in": 591.7,
+    "n": 920
+  },
+  "page.direct": {
+    "acc": 0.6565,
+    "acc_lenient": 0.6728,
+    "exec_fail": null,
+    "tokens_in": 968.1,
+    "n": 920
+  }
+}
