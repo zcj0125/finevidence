@@ -68,5 +68,19 @@
     "exec_fail": 0.0644,
     "tokens_in": 2309.7,
     "n": 776
+  },
+  "bm25+reranker-base-ft@30.top3": {
+    "acc": 0.491,
+    "acc_lenient": 0.5026,
+    "exec_fail": 0.0567,
+    "tokens_in": 1474.7,
+    "n": 776
+  },
+  "bm25+reranker-base-ft@30.top5": {
+    "acc": 0.491,
+    "acc_lenient": 0.4974,
+    "exec_fail": 0.0709,
+    "tokens_in": 2351.2,
+    "n": 776
   }
 }
