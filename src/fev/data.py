@@ -85,3 +85,15 @@ def _same_answer(a, b) -> bool:
         return abs(float(a) - float(str(b).replace(",", "").rstrip("%"))) < 1e-2 * max(1.0, abs(float(a)))
     except (TypeError, ValueError):
         return str(a).strip().lower() == str(b).strip().lower()
+
+
+def load_proc(split: str) -> tuple[list[Example], list[list[str]], list[list[int]]]:
+    """Preprocessed split (scripts/prepare.py): examples, chunked docs, gold chunk ids per example."""
+    proc = DATA / "proc"
+    docs = [json.loads(l) for l in (proc / f"{split}.docs.jsonl").open()]
+    exs, gold = [], []
+    for l in (proc / f"{split}.examples.jsonl").open():
+        r = json.loads(l)
+        gold.append(r.pop("gold_chunks"))
+        exs.append(Example(**r))
+    return exs, docs, gold
