@@ -1,0 +1,27 @@
+[project]
+name = "fev"
+version = "0.1.0"
+description = "FinEvidence: evidence retrieval and executable numeric reasoning over financial filings"
+requires-python = ">=3.12"
+dependencies = [
+    "torch",
+    "sentence-transformers",
+    "bm25s",
+    "PyStemmer",
+    "numpy",
+    "tqdm",
+    "openai",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fev"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
